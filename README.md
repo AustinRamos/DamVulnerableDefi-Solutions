@@ -44,3 +44,15 @@ SOLUTIONS:
             data
         )
         await this.token.connect(attacker).transferFrom(this.pool.address, attacker.address, TOKENS_IN_POOL)
+
+
+
+
+
+#4 side-entrance: 
+
+    To drain the funds from this simple lending pool, we take advantage of the condition check  
+    'require(address(this).balance >= balanceBefore, "Flash loan hasn't been paid back"); '
+    which is performed after the flashloan is executed. If we simply  depoosit the flashloan funds back into the pool from the attacking contract which executes the flashloan, then the flashloan will not revert and the 1000 eth will be changed to be reflected as the attacker balance. so after we execute the flashloan we can just call withdraw to withdraw the eth to the attacker contract, and then transfer the eth from the attacker contract to the attacker. 
+
+    Note: the attacker contract must have a payable recieve/fallback function to recieve the eth from the lending pool when withdrawing... 

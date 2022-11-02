@@ -29,6 +29,9 @@ contract TrusterLenderPool is ReentrancyGuard {
         external
         nonReentrant
     {
+
+        //abi.encodeWithSignature("update(uint256)", 100)
+        
         uint256 balanceBefore = damnValuableToken.balanceOf(address(this));
         require(balanceBefore >= borrowAmount, "Not enough tokens in pool");
         
