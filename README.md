@@ -56,3 +56,9 @@ SOLUTIONS:
     which is performed after the flashloan is executed. If we simply  depoosit the flashloan funds back into the pool from the attacking contract which executes the flashloan, then the flashloan will not revert and the 1000 eth will be changed to be reflected as the attacker balance. so after we execute the flashloan we can just call withdraw to withdraw the eth to the attacker contract, and then transfer the eth from the attacker contract to the attacker. 
 
     Note: the attacker contract must have a payable recieve/fallback function to recieve the eth from the lending pool when withdrawing... 
+
+
+    #5
+    Slightly more complicated contract/problem. After looking for a while though there is no time weighted aspect to the reward pool, so if we have a lot of tokens deposited for a short time after round 3 starts, and call distirbute reward token in the receive() flashloan callback, the snapshot will be taken with all the flashloaned tokens deposited into the pool by our attacker contract and we will get (essentially) all the rewards for that round.
+
+    #6
