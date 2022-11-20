@@ -1145,8 +1145,8 @@
       ]
     },
     "/Users/austinramos/Documents/Workspace/damn-vulnerable-defi/contracts/the-rewarder/FlashLoanerPool.sol": {
-      "lastModificationDate": 1660282489069,
-      "contentHash": "cd9144255de9d71c4f489d2da7fbe7ad",
+      "lastModificationDate": 1667581885365,
+      "contentHash": "bcc49a62ee57a82c50a9399a69663bb2",
       "sourceName": "contracts/the-rewarder/FlashLoanerPool.sol",
       "solcConfig": {
         "version": "0.8.7",
@@ -1173,7 +1173,8 @@
       "imports": [
         "@openzeppelin/contracts/security/ReentrancyGuard.sol",
         "@openzeppelin/contracts/utils/Address.sol",
-        "../DamnValuableToken.sol"
+        "../DamnValuableToken.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -1293,8 +1294,8 @@
       ]
     },
     "/Users/austinramos/Documents/Workspace/damn-vulnerable-defi/contracts/the-rewarder/TheRewarderPool.sol": {
-      "lastModificationDate": 1660282489069,
-      "contentHash": "91f02682e2d3d2387f7a8c38206fd602",
+      "lastModificationDate": 1667511826835,
+      "contentHash": "b2571a7175a79e2a3dd5cbdcf7299b1d",
       "sourceName": "contracts/the-rewarder/TheRewarderPool.sol",
       "solcConfig": {
         "version": "0.8.7",
@@ -1321,7 +1322,8 @@
       "imports": [
         "./RewardToken.sol",
         "../DamnValuableToken.sol",
-        "./AccountingToken.sol"
+        "./AccountingToken.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -2967,44 +2969,6 @@
       "versionPragmas": [],
       "artifacts": []
     },
-    "/Users/austinramos/Documents/Workspace/damn-vulnerable-defi/contracts/side-entrance/Attacker.sol": {
-      "lastModificationDate": 1667414393437,
-      "contentHash": "00d43b79b3f1da9ca1791d257ce04953",
-      "sourceName": "contracts/side-entrance/Attacker.sol",
-      "solcConfig": {
-        "version": "0.8.7",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/utils/Address.sol",
-        "./SideEntranceLenderPool.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Attacker"
-      ]
-    },
     "/Users/austinramos/Documents/Workspace/damn-vulnerable-defi/node_modules/hardhat/console.sol": {
       "lastModificationDate": 1662401826799,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
@@ -3037,6 +3001,85 @@
       ],
       "artifacts": [
         "console"
+      ]
+    },
+    "/Users/austinramos/Documents/Workspace/damn-vulnerable-defi/contracts/the-rewarder/Attacker.sol": {
+      "lastModificationDate": 1668968691589,
+      "contentHash": "901ec57928c841866dfd57faad5c0264",
+      "sourceName": "contracts/the-rewarder/Attacker.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/utils/Address.sol",
+        "../DamnValuableToken.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Attacker",
+        "FlashLoanPool",
+        "RewardPool"
+      ]
+    },
+    "/Users/austinramos/Documents/Workspace/damn-vulnerable-defi/contracts/side-entrance/Attacker1.sol": {
+      "lastModificationDate": 1667519504168,
+      "contentHash": "50ed25f275225ce5793d560e72a5a405",
+      "sourceName": "contracts/side-entrance/Attacker1.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Address.sol",
+        "./SideEntranceLenderPool.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Attacker1"
       ]
     }
   }

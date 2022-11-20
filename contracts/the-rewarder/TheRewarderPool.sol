@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./RewardToken.sol";
 import "../DamnValuableToken.sol";
 import "./AccountingToken.sol";
+import "hardhat/console.sol";
 
 /**
  * @title TheRewarderPool
@@ -51,7 +52,7 @@ contract TheRewarderPool {
         
         accToken.mint(msg.sender, amountToDeposit);
         distributeRewards();
-
+      
         require(
             liquidityToken.transferFrom(msg.sender, address(this), amountToDeposit)
         );
@@ -74,7 +75,8 @@ contract TheRewarderPool {
 
         if (amountDeposited > 0 && totalDeposits > 0) {
             rewards = (amountDeposited * 100 * 10 ** 18) / totalDeposits;
-
+            uint val = rewards / (10**18);
+      console.log(val);
             if(rewards > 0 && !_hasRetrievedReward(msg.sender)) {
                 rewardToken.mint(msg.sender, rewards);
                 lastRewardTimestamps[msg.sender] = block.timestamp;

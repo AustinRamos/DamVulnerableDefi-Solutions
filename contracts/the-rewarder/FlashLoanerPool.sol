@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "../DamnValuableToken.sol";
+import "hardhat/console.sol";
 
 /**
  * @title FlashLoanerPool
@@ -23,12 +24,14 @@ contract FlashLoanerPool is ReentrancyGuard {
     }
 
     function flashLoan(uint256 amount) external nonReentrant {
+        console.log("INSIDE FLASSHLOAN****");
         uint256 balanceBefore = liquidityToken.balanceOf(address(this));
         require(amount <= balanceBefore, "Not enough token balance");
 
         require(msg.sender.isContract(), "Borrower must be a deployed contract");
         
         liquidityToken.transfer(msg.sender, amount);
+console.log("liquidity token transfer");
 
         msg.sender.functionCall(
             abi.encodeWithSignature(
@@ -36,7 +39,7 @@ contract FlashLoanerPool is ReentrancyGuard {
                 amount
             )
         );
-
+console.log("after low level function call");
         require(liquidityToken.balanceOf(address(this)) >= balanceBefore, "Flash loan not paid back");
     }
 }

